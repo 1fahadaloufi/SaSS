@@ -16,5 +16,6 @@ module top
   input  logic txready, rxready
 );
 
+oscilator osc (.clk(hwclk), .nrst(pb[0]), .max(19'd305780), .count(right));
 
 endmodule
