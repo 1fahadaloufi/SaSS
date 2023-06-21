@@ -1,11 +1,11 @@
 # STARS 2023 Design Final Project
 
 ## [Team Name]
-* [Name]
-* [Name]
-* [Name]
-* [Name]
-* [TA]
+* Sydney Cozart
+* Elena Lehner
+* Connor Mehan
+* Alex Rodriguez - Gonzalez
+* Fahad Aloufi
 
 ## [Project Name]
 Description of functionality, how to use it, and any supporting equipment required
