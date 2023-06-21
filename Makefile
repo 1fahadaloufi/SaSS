@@ -203,7 +203,7 @@ $(SIM_SOURCE): $(SRC)
 	@echo "----------------------------------------------------------------"
 	@echo "Simulating source ....."
 	@echo -e "----------------------------------------------------------------\n\n"
-	@vvp -lxt -s $(BUILD)/$@.vvp
+	@vvp -lxt $(BUILD)/$@.vvp
 	@echo -e "\n\n"
 
 # This rule defines how to simulate the mapped form of the full design
@@ -211,7 +211,7 @@ $(SIM_MAPPED): $(MAP)
 	@echo "----------------------------------------------------------------"
 	@echo "Simulating mapped ....."
 	@echo -e "----------------------------------------------------------------\n\n"
-	@vvp -lxt -s $(BUILD)/$@.vvp
+	@vvp -lxt  $(BUILD)/$@.vvp
 	@echo -e "\n\n"
 
 
