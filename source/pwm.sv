@@ -50,5 +50,4 @@ module pwm (input logic [7:0]comb_waveform, input logic clk, n_rst, ready, outpu
         pwm_o <= 0;
     end
 
-
 endmodule

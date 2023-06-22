@@ -1,6 +1,15 @@
 
+/************************************************************************************************************/
+// Inputs:
+//    clk -> 10kHz clock
+//    n_rst -> Async negative reset, resets when n_rst is 0
+//
+// Outputs:
+//    pulse -> A 1 or 0 "pulse" which tells the waveshaper to take a value from the oscilator
+//   
+/*************************************************************************************************************/
 
-module sample_rate_clkdiv (input logic clk, nrst, output logic pulse);
+module std_rate_clk_div (input logic clk, nrst, output logic pulse);
 
   parameter MAX = 8'd255; // Max value to count to is 255
   logic [7:0]count; // Current count

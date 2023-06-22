@@ -1,3 +1,14 @@
+/************************************************************************************************************/
+// Inputs:
+//    clk -> 10kHz clock
+//    n_rst -> Async negative reset, resets when n_rst is 0
+//    max -> Maximum value the oscilator will count to, given by the lookup table
+//
+// Outputs:
+//    count -> Current value that the oscilator is on while counting
+//   
+/*************************************************************************************************************/
+
 module oscilator (input logic clk, nrst, input logic [18:0] max, output logic [18:0]count);
 
   logic [18:0]next_count; // Initializing next_count variable for use in flip-flop

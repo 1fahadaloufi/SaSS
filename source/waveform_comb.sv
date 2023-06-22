@@ -1,4 +1,17 @@
-
+/************************************************************************************************************/
+// Inputs:
+//    multi -> 1 or 0 value describing if there are multiple note buttons pressed
+//    done1 -> Signal from first waveshaper signaling if the value outputted is a valid value for a waveshaper
+//    done2 -> Signal from second waveshaper signaling if the value outputted is a valid value for a waveshaper
+//    clk -> 10kHz clock
+//    n_rst -> Async negative reset, resets when n_rst is 0
+//    sample1 -> Waveform from first waveshaper 8 bits
+//    sample2 -> Waveform from second waveshaper 8 bits
+//
+// Outputs:
+//    ready -> 1 or 0 value asserted when the output of the waveform combiner is valid and ready to be taken
+//    comb_waveform -> Final combined waveform value to be outputed to pwm
+/*************************************************************************************************************/
 
 module waveform_comb (input logic multi, done1, done2, clk, n_rst, input logic [7:0]sample1, sample2, output logic ready, output logic [7:0] comb_waveform);
 

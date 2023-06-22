@@ -1,4 +1,13 @@
-
+/************************************************************************************************************/
+// Inputs:
+//    mode_key -> 1 or 0 "pulse" value describing if the key to cycle between modes has been pressed
+//    clk -> 10kHz clock
+//    n_rst -> Async negative reset, resets when n_rst is 0
+//
+// Outputs:
+//    mode -> A 2-bit value 0-3 which corresponds to one of the 4 possible states which the waveform_fsm can be in
+//   
+/*************************************************************************************************************/
 
 module waveform_fsm (input logic mode_key, clk, n_rst, output logic [1:0]mode);
 
