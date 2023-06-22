@@ -92,7 +92,8 @@ initial begin
     #(CLK_PERIOD * 7);
 
     tb_count = 19'd137260; 
-    tb_divisor = 19'd152890; 
+    tb_divisor = 19'd152890;
+    Q_in_tb = 8'd129; 
 
     #(CLK_PERIOD * 7);
 
