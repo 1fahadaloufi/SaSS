@@ -36,14 +36,14 @@ module waveshaper(
     input logic [18:0] count, divisor,
     output logic [7:0] sample
 );
-    logic [8:0] b_sample;
+    logic [8:0] b_sample;      //larger sample used as a inbetween holder for the triangle wave math
 
     always_comb begin
         case(mode)
             0: b_sample = 0;                                //off
-            1: b_sample = (count > divisor >> 1) ? 255 : 0; //square
-            2: b_sample = {1'b0, Q};                        //saw
-            3: begin                                        //triangle
+            1: b_sample = (count > divisor >> 1) ? 255 : 0; //square, if the count is half way through the total value out put high
+            2: b_sample = {1'b0, Q};                        //saw, out put the scaled value from the seq div
+            3: begin                                        //triangle, increasig like a saw wave while below half way through the total then decreasing
                 if(count < divisor >> 1)                    // |
                     b_sample = {1'b0, Q} << 1;              // |
                 else                                        // |
