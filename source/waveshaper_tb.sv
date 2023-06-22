@@ -86,6 +86,16 @@ initial begin
     tb_mode = 3'd2;
 
     #(CLK_PERIOD * 7);
+
+    tb_mode = 3'd3;
+
+    #(CLK_PERIOD * 7);
+
+    tb_count = 19'd137260; 
+    tb_divisor = 19'd152890; 
+
+    #(CLK_PERIOD * 7);
+
     
     $finish; 
 end
