@@ -1,3 +1,35 @@
+// ************************************************************************************************
+// Waveshaper
+//   inputs: Q <- 8 bits from seq div the quotient
+//           mode <- 3 bits from mode FSM to determine if synth should output off, square, saw,
+//                   or triangle
+//           count <- 19 bits from osc
+//           divisor <- 19 bits from freq div table
+//
+//   output: sample <- 8 bit fed to PWM to determine duty cycle
+//
+//   Use: turns vaules from seq div into shaped waves
+//
+//        off         
+//
+//                   __________________________  
+//
+//
+//        square     _____        ______
+//                        |      |      |
+//                        |______|      |______
+//   
+//        saw          /|  /|  /|  /|  /|  /|
+//                    / | / | / | / | / | / | /
+//                   /  |/  |/  |/  |/  |/  |/
+//
+//        triangle     /\    /\    /\    /\
+//                    /  \  /  \  /  \  /  \
+//                   /    \/    \/    \/    \
+//
+//
+// ************************************************************************************************
+
 module waveshaper(
     input logic [7:0] Q,
     input logic [2:0] mode,

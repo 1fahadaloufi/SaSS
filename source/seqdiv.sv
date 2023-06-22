@@ -7,55 +7,61 @@
 //           RST <- expects a ACTIVE LOW rst Signals
 //   output: Q_out <- 8 bit quotient fed to waveshaper
 //           done <- signals when value is ready to be read
+//
+//   Use: Multi the count input by 256 (8 bit shift) and divides it by dsor only when a sample 
+//        signal has be asserted. When the divison has completed after (bit width of dividend)
+//        clock cycles an 8 bit Quotent will be output with a done signal. The done signal
+//        will be asserted for as long as the quotient is correct.
 // ************************************************************************************************
 
 
 
 module seqdiv 
-//#(parameter BIT_WIDTH = 4;)
 (
-  input logic [18:0] count, dsor, //BIT_WIDTH - 1
+  input logic [18:0] count, dsor,
   input logic sample, clk, RST,
-  output logic [7:0] Q_out, //BIT_WIDTH
+  output logic [7:0] Q_out,
   output logic done
 );
-  logic [27:0] part1_A, part1_Q, next_Q, Q, next_M, M, next_A, A; //BIT_WIDTH
-  logic [5:0] next_C, C;
+  logic [27:0] part1_A, part1_Q, next_Q, Q, next_M, M, next_A, A; 
+  logic [5:0] next_C, C; //counter variables to determine how many clock cycles have passed
   logic start, next_start, dived, next_dived;
 
   always_comb begin
     
     if(sample) begin
-      next_A = 0;
-      next_M = {1'b0, 8'b0, dsor};
-      next_Q = {1'b0,count, 8'b0};
-      next_C = 0;
+      next_A = 0;                  //A is used to store the result of adding or subtracting the divisor from the dividend
+      next_M = {1'b0, 8'b0, dsor}; //divisor is loaded into M with a leading sign bit and 8 leading 0s
+      next_Q = {1'b0,count, 8'b0}; //Count is loaded into Q (sharded dividend and quotent register) with a sign bit and following 0s to "multiply" by 256
+      next_C = 0; 
       part1_A = 0;
       part1_Q = 0;
       done = 0;
 
-      next_start = 1;
+      next_start = 1;               //tells the divider to start only when the sample signal has been asserted
       next_dived = 0;
 
       Q_out = 0;
     end
-    else if(C < (28) & start) begin //BIT_WIDTH + 1
-      {part1_A, part1_Q} = {A, Q} << 1;
-      next_M = M;
-      if(part1_A[27]) begin
+    else if(C < (28) & start) begin
+      {part1_A, part1_Q} = {A, Q} << 1; //treats A and Q as one register and shifts left so MSB of Q moves into the LSB of A
+      next_M = M;                       //Loops the divisor in its register to act as memory so divisor does not change during divison 
+
+      if(part1_A[27]) begin             //checks the sign bit of the, 1 means A is negative
         next_A = part1_A + M;
       end
       else begin
         next_A = part1_A - M;
       end
       
-      if(next_A[27]) begin
+      if(next_A[27]) begin              //checks the sign bit of A after the previous operation, negative means 0 is stored in the Quotient
         next_Q = part1_Q;
       end
       else begin
         next_Q = part1_Q + 1;
       end
-      next_C = C + 1;
+
+      next_C = C + 1;                   //increment counter
       done = 0;
 
       next_start = 1;
@@ -64,7 +70,7 @@ module seqdiv
 
       Q_out = 0;
     end
-    else if (dived) begin
+    else if (dived) begin               //checks if a value has been previously divided (used to make sure done signal is not asserted on RST)
       done = 1; 
       next_Q = Q;
       part1_Q = 0;
