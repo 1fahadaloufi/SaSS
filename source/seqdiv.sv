@@ -1,3 +1,16 @@
+// ************************************************************************************************
+// Sequential Divider module
+//   inputs: count <- 19 bit value from oscilator should be smaller than dsor as it is * 256
+//           dsor <- 19 bit value from frequence table
+//           sample <- expects a pulse from sample counter to tell to sample every 255 ticks
+//           clk
+//           RST <- expects a ACTIVE LOW rst Signals
+//   output: Q_out <- 8 bit quotient fed to waveshaper
+//           done <- signals when value is ready to be read
+// ************************************************************************************************
+
+
+
 module seqdiv 
 //#(parameter BIT_WIDTH = 4;)
 (
@@ -81,8 +94,8 @@ module seqdiv
     end
   end
   
-  always_ff @(posedge clk, posedge RST) begin
-    if(RST) begin
+  always_ff @(posedge clk, negedge RST) begin
+    if(!RST) begin
       C <= 0;
       Q <= 0;
       M <= 0;
