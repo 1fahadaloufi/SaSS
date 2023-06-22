@@ -46,9 +46,9 @@ initial begin
      
     N_RST = 1'b1; 
 
-    #(CLK_PERIOD * 1000);
+    #(CLK_PERIOD * 1000)
 
-
+    $finish;
 
 end
 
