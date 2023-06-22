@@ -2,7 +2,7 @@
 
 `timescale 1ns/10ps
 
-module tb();
+module seqdiv_tb();
 
 localparam CLK_PERIOD = 83.33; // 12 Mhz
 

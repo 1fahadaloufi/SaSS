@@ -17,6 +17,7 @@ module waveshaper(
                 else                                        // |
                     b_sample = 510 - ({1'b0, Q} << 1);      //\ /
                end
+            default: b_sample = 0;
         endcase
         sample = b_sample[7:0];
     end
