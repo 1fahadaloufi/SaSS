@@ -6,7 +6,7 @@ module oscilator (input logic clk, nrst, input logic [18:0] max, output logic [1
     if(nrst)
     count <= next_count;
     else
-    count <= 0; // Reset sets count to zero
+    count <= 1; // Reset sets count to zero
   end
 
   always_comb begin
