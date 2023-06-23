@@ -16,6 +16,5 @@ module top
   input  logic txready, rxready
 );
 
-waveform_comb u1 (.multi(pb[3]), .done1(pb[2]), .done2(pb[1]), .clk(hwclk), .n_rst(pb[10]), .sample1(8'd134), .sample2(8'd32), .ready(green), .comb_waveform(right));
 
 endmodule
