@@ -12,7 +12,13 @@
 module waveform_fsm (input logic mode_key, clk, n_rst, output logic [1:0]mode);
 
 logic [1:0]next_state; // Declaring intermediate variable for flip-flop
-typedef enum logic [1:0]{OFF, SQUARE, SAW, TRI} wave_types; // Giving names to states, OFF is 0, SQUARE is 1, SAW is 2, and TRI is 3
+
+// Giving names to states, OFF is 0, SQUARE is 1, SAW is 2, and TRI is 3
+parameter [1:0] OFF = 0;
+parameter [1:0] SQUARE = 1;
+parameter [1:0] SAW = 2;
+parameter [1:0] TRI = 3;
+
 
     always_ff @ (posedge clk, negedge n_rst) begin
         if(n_rst)
