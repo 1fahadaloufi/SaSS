@@ -22,7 +22,7 @@ end
 endmodule*/
 
 
-module newfreq_div(input logic [3:0]note, input logic [2:0]octave,
+module lookup_table(input logic [3:0]note, input logic [2:0]octave,
                 output logic [18:0]divider);
 always_comb begin
   case(note)
