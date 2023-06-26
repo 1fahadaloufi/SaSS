@@ -14,14 +14,14 @@ always_comb begin
     3'd4: next_state = (octave_in == 1) ? 5:4; //4 - O5
     3'd5: next_state = (octave_in == 1) ? 6:5; //5 - O6
     3'd6: next_state = (octave_in == 1) ? 0:6; //6 - O7
-    default: next_state = 3'd7;
+    default: next_state = 3'd3;
     endcase
 end
 
 always_ff @ (posedge clk, negedge nrst) begin
     
     if(!nrst) begin
-       state <= 3'd0;
+       state <= 3'd3;
     end
     else begin
        state <= next_state;
