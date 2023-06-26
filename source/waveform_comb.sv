@@ -13,7 +13,7 @@
 //    comb_waveform -> Final combined waveform value to be outputed to pwm
 /*************************************************************************************************************/
 
-module waveform_comb (input logic multi, done1, done2, clk, n_rst, input logic [7:0]sample1, sample2, output logic ready, output logic [7:0] comb_waveform);
+module waveform_comb (input logic multi, done1, done2, input logic [7:0]sample1, sample2, output logic ready, output logic [7:0] comb_waveform);
 
     logic [8:0] new_sample1, new_sample2, sum, inter_waveform; // Creating new varibales with one extra bit to handle overflow when adding
 
