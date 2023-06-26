@@ -116,7 +116,7 @@ initial begin
 
     PLAY = 0;
 
-    #(CLK_PERIOD * 100000000);
+    #(CLK_PERIOD * 10000000);
 
     $finish;
 
