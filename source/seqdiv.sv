@@ -80,7 +80,7 @@ module seqdiv
       next_C = C;
 
       next_start = 0;
-      next_dived = 1;
+      next_dived = 0;   //was 1
 
       Q_out = Q[7:0];
     end
