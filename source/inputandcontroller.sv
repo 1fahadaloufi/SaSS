@@ -1,7 +1,7 @@
 `default_nettype none
 // Empty top module
 
-module top (
+module inputandcontroller (
   // USER INPUTS
   input logic [14:0] INPUT_keypad_i,
   input logic INPUT_clk,
