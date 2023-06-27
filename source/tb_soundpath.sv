@@ -20,10 +20,11 @@ logic tb_clk;
 logic tb_Rst_i;
 logic [1:0] tb_mode;
 logic [18:0] tb_divisor;
-logic [7:0] tb_sample;
+logic [8:0] tb_sample;
 logic tb_done;
 logic tb_sample_now;
 logic tb_pwm;
+logic [8:0] tb_pwm_sample;
 
 task reset_dut;
     @(negedge tb_clk);
@@ -52,15 +53,26 @@ end
                  .sample_now(tb_sample_now),
                  .mode(tb_mode),
                  .note(12),
-                 .octave(3),
+                 .octave(6),
                  .sample(tb_sample),
                  .done(tb_done));
                 
- pwm DUT2(.clk(tb_clk),
-          .n_rst(tb_Rst_i),
-          .comb_waveform(tb_sample),
-          .ready(tb_done),
-          .pwm_o(tb_pwm));
+//  pwm DUT2(.clk(tb_clk),
+//           .n_rst(tb_Rst_i),
+//           .comb_waveform(tb_sample),
+//           .ready(tb_done),
+//           .pwm_o(tb_pwm));
+
+always_ff @(posedge tb_clk, negedge tb_Rst_i) begin
+    if(!tb_Rst_i) begin
+        tb_pwm_sample <= 0;
+    end
+    else
+        if(tb_done)
+            tb_pwm_sample <= tb_sample;
+        else
+            tb_pwm_sample <= tb_pwm_sample;
+end
 
 initial begin
 
@@ -72,6 +84,8 @@ initial begin
     tb_divisor = 19'd2658;
     
     reset_dut();
+
+    #(CLK_PERIOD);
 
     // #(CLK_PERIOD * (tb_divisor * 5));
 
@@ -85,7 +99,7 @@ initial begin
 
     tb_mode = 2'd3;
     
-    #(CLK_PERIOD * (tb_divisor * 15));
+    #(CLK_PERIOD * (tb_divisor * 30));
     
     $finish; 
 end
