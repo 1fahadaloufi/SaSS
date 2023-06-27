@@ -12,10 +12,11 @@
 module tempo_select (input logic tempo_button, clk, n_rst, output logic [22:0]tempo);
 
     logic [22:0]next_tempo;
-    parameter BPM120 = 23'd4999999;
-    parameter BPM240 = 23'd2499999;
-    parameter BPM75 = 23'd7999999;
-    parameter BPM100 = 23'd5999999;
+    parameter BPM120 = 23'd2499999;
+    parameter BPM240 = 23'd1249999;
+    parameter BPM75 = 23'd3999999;
+    parameter BPM100 = 23'd2999999;
+
 
     always_ff @(posedge clk, negedge n_rst) begin
         if(n_rst)
