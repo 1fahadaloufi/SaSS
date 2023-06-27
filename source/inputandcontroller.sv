@@ -5,19 +5,19 @@ module inputandcontroller (
   // USER INPUTS
   input logic [14:0] INPUT_keypad_i,
   input logic INPUT_clk,
+  input logic INPUT_NRST,
   // USER OUTPUTS
   output logic OUTPUT_octave_input_out, OUTPUT_mode_out,
   output logic [3:0] OUTPUT_multi,
   output logic [3:0] OUTPUT_note_1, OUTPUT_note_2, OUTPUT_note_3, OUTPUT_note_4
 );
 // INTERNAL SIGNALS
-logic INTERNAL_NRST;
 logic [12:0] INTERNAL_SYNCED_I;
 logic INTERNAL_OCTAVE_INPUT, INTERNAL_MODE;
 // Module instances
-synchronizer u1 (.keypad_i(INPUT_keypad_i), .clk(INPUT_clk), .nrst(INTERNAL_NRST), .synced_i(INTERNAL_SYNCED_I), .octave_input(INTERNAL_OCTAVE_INPUT), .mode(INTERNAL_MODE));
-edgedetector u2 (.in(INTERNAL_OCTAVE_INPUT), .clk(INPUT_clk), .nrst(INTERNAL_NRST), .ris_edge_o(OUTPUT_octave_input_out));
-edgedetector u3 (.in(INTERNAL_MODE), .clk(INPUT_clk), .nrst(INTERNAL_NRST), .ris_edge_o(OUTPUT_mode_out));
+synchronizer u1 (.keypad_i(INPUT_keypad_i), .clk(INPUT_clk), .nrst(INPUT_NRST), .synced_i(INTERNAL_SYNCED_I), .octave_input(INTERNAL_OCTAVE_INPUT), .mode(INTERNAL_MODE));
+edgedetector u2 (.in(INTERNAL_OCTAVE_INPUT), .clk(INPUT_clk), .nrst(INPUT_NRST), .ris_edge_o(OUTPUT_octave_input_out));
+edgedetector u3 (.in(INTERNAL_MODE), .clk(INPUT_clk), .nrst(INPUT_NRST), .ris_edge_o(OUTPUT_mode_out));
 adder_encoder u4 (.key(INTERNAL_SYNCED_I), .multi(OUTPUT_multi), .note_1(OUTPUT_note_1), .note_2(OUTPUT_note_2), .note_3(OUTPUT_note_3), .note_4(OUTPUT_note_4));
 endmodule
 
