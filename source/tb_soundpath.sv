@@ -23,6 +23,7 @@ logic [18:0] tb_divisor;
 logic [7:0] tb_sample;
 logic tb_done;
 logic tb_sample_now;
+logic tb_pwm;
 
 task reset_dut;
     @(negedge tb_clk);
@@ -46,13 +47,20 @@ always begin
 end
 
 
- soundpath DUT (.clk(tb_clk),
+ soundpath DUT1 (.clk(tb_clk),
                  .n_rst(tb_Rst_i),
                  .sample_now(tb_sample_now),
                  .mode(tb_mode),
-                 .divisor(tb_divisor),
+                 .note(12),
+                 .octave(3),
                  .sample(tb_sample),
                  .done(tb_done));
+                
+ pwm DUT2(.clk(tb_clk),
+          .n_rst(tb_Rst_i),
+          .comb_waveform(tb_sample),
+          .ready(tb_done),
+          .pwm_o(tb_pwm));
 
 initial begin
 
@@ -65,19 +73,19 @@ initial begin
     
     reset_dut();
 
-    #(CLK_PERIOD * (tb_divisor * 5));
+    // #(CLK_PERIOD * (tb_divisor * 5));
 
-    tb_mode = 2'd1;
+    // tb_mode = 2'd1;
     
-    #(CLK_PERIOD * (tb_divisor * 5));
+    // #(CLK_PERIOD * (tb_divisor * 5));
 
-    tb_mode = 2'd2;
+    // tb_mode = 2'd2;
     
-    #(CLK_PERIOD * (tb_divisor * 5));
+    // #(CLK_PERIOD * (tb_divisor * 5));
 
     tb_mode = 2'd3;
     
-    #(CLK_PERIOD * (tb_divisor * 5));
+    #(CLK_PERIOD * (tb_divisor * 15));
     
     $finish; 
 end

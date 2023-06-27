@@ -18,7 +18,7 @@ module sequencer_player #(parameter PLAY_ON = 0)
                           output logic [3:0]note_sustain);
 
     logic [3:0]state, next_state, note, next_note_sustain; // States for note values
-    logic [3:0]enable;
+    logic [4:0]enable;
 
     parameter [3:0] OFF = 4'd0;
     parameter [3:0] lowC = 4'd1;
@@ -40,11 +40,11 @@ module sequencer_player #(parameter PLAY_ON = 0)
     always_ff @(posedge clk, negedge n_rst) begin
         if(n_rst) begin
             state <= next_state;
-            note_sustain <= next_note_sustain;
+            //note_sustain <= next_note_sustain;
         end
         else begin
             state <= OFF;
-            note_sustain <= 0;
+            //note_sustain <= 0;
         end
 
     end
@@ -78,14 +78,14 @@ module sequencer_player #(parameter PLAY_ON = 0)
         end
     end
 
+    assign note_sustain = note;
 
-
-    always_comb begin
-        case(|note_sustain)
-        0: next_note_sustain = |enable ? note : 0;
-        1: next_note_sustain = |enable ? 0 : note;
-        default: next_note_sustain = 0;
-        endcase
-    end
+    // always_comb begin
+    //     case(|note_sustain)
+    //     0: next_note_sustain = |enable ? note : 0;
+    //     1: next_note_sustain = |enable ? 0 : note;
+    //     default: next_note_sustain = 0;
+    //     endcase
+    // end
 
 endmodule
