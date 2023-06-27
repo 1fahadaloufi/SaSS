@@ -1,4 +1,4 @@
-`timescale 1ns/10ps
+`timescale 1ns/1ns
 
 `default_nettype none
 
@@ -10,7 +10,7 @@ reg CLK, N_RST;
 
 reg [7:0]KEY;
 
-reg SEQUENCER_ON, PLAY;
+reg SEQUENCER_ON, PLAY, TEMPO_SEL;
 
 wire [3:0] NOTE_SUSTAIN; //a testbench has no inputs or outputs, the DUT has
 
@@ -18,7 +18,7 @@ reg [1023:0] testname;
 
 localparam time CLK_PERIOD = 100; // 10kHz clock
 
-sequencer dfg (.keys({KEY, SEQUENCER_ON, PLAY}), .clk(CLK), .n_rst(N_RST), .note_sustain(NOTE_SUSTAIN));
+sequencer dfg (.keys({TEMPO_SEL, KEY, SEQUENCER_ON, PLAY}), .clk(CLK), .n_rst(N_RST), .note_sustain(NOTE_SUSTAIN), .to_led(), .sequencer_on());
 
 always begin // Clock ticking
 
@@ -51,6 +51,7 @@ initial begin
     SEQUENCER_ON = 0;
     N_RST = 1'b1; 
     PLAY = 0;
+    TEMPO_SEL = 0;
 
     @(negedge CLK);
 
