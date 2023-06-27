@@ -17,13 +17,16 @@ module soundpath(input logic clk, n_rst, sample_now,
                  input logic [3:0] note,
                  input logic [2:0] octave,
                  input logic [1:0] mode,
-                 output logic [7:0] sample,
+                 output logic [8:0] sample,
                  output logic done
 );
 
-  logic [7:0] Q; //quotient value before it is shaped by the waveshaper
+  logic [8:0] Q; //quotient value before it is shaped by the waveshaper
   logic [18:0] count; //counting up value from oscilator, serves as dividend
   logic [18:0] divisor; //value from LUT based on key pressed
+
+  logic [18:0] count_m;
+  logic [18:0] divisor_m;
 
   lookup_table LUT (.note(note),
                     .octave(octave),
@@ -40,12 +43,14 @@ module soundpath(input logic clk, n_rst, sample_now,
                .count(count),
                .dsor(divisor),
                .done(done),
-               .Q_out(Q));
+               .Q_out(Q),
+               .count_m(count_m),
+               .divisor_m(divisor_m));
 
   waveshaper waveshape (.Q(Q),
                         .mode({1'b0, mode}),
-                        .count(count),
-                        .divisor(divisor),
+                        .count(count_m),
+                        .divisor(divisor_m),
                         .sample(sample));
 
 endmodule
