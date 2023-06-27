@@ -17,22 +17,23 @@ module tempo_select (input logic tempo_button, clk, n_rst, output logic [21:0]te
     parameter BPM480 = 22'd624999;
     parameter BPM320 = 22'd937499;
 
+    logic [1:0]state, next_state;
 
     always_ff @(posedge clk, negedge n_rst) begin
         if(n_rst)
-        tempo <= next_tempo;
+        state <= next_state;
         else
-        tempo <= BPM240;
+        state <= 0;
     end
 
     always_comb begin
 
-        case(tempo)
-        BPM240: next_tempo = tempo_button ? BPM320 : BPM240; 
-        BPM320: next_tempo = tempo_button ? BPM480 : BPM320;
-        BPM480: next_tempo = tempo_button ? BPM120 : BPM480;
-        BPM120: next_tempo = tempo_button ? BPM240 : BPM120;
-        default: next_tempo = BPM240;
+        case(state)
+        2'd0: begin next_state = tempo_button ? 2'd1 : 2'd0; tempo = BPM240; end
+        2'd1: begin next_state = tempo_button ? 2'd2 : 2'd1; tempo = BPM320; end
+        2'd2: begin next_state = tempo_button ? 2'd3 : 2'd2; tempo = BPM480; end
+        2'd3: begin next_state = tempo_button ? 2'd0 : 2'd3; tempo = BPM120; end
+        default: begin next_state = 2'd0; tempo = BPM240; end
         endcase 
 
     end
