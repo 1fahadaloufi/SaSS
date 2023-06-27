@@ -9,13 +9,13 @@
 //    tempo -> 23 bit value which determines the rate at which the measure counter counts
 /*************************************************************************************************************/
 
-module tempo_select (input logic tempo_button, clk, n_rst, output logic [22:0]tempo);
+module tempo_select (input logic tempo_button, clk, n_rst, output logic [21:0]tempo);
 
-    logic [22:0]next_tempo;
-    parameter BPM120 = 23'd2499999;
-    parameter BPM240 = 23'd1249999;
-    parameter BPM75 = 23'd3999999;
-    parameter BPM100 = 23'd2999999;
+    logic [21:0]next_tempo;
+    parameter BPM120 = 22'd2499999;
+    parameter BPM240 = 22'd1249999;
+    parameter BPM480 = 22'd624999;
+    parameter BPM320 = 22'd937499;
 
 
     always_ff @(posedge clk, negedge n_rst) begin
@@ -28,10 +28,10 @@ module tempo_select (input logic tempo_button, clk, n_rst, output logic [22:0]te
     always_comb begin
 
         case(tempo)
-        BPM240: next_tempo = tempo_button ? BPM120 : BPM240; 
-        BPM120: next_tempo = tempo_button ? BPM100 : BPM120;
-        BPM100: next_tempo = tempo_button ? BPM75 : BPM100;
-        BPM75: next_tempo = tempo_button ? BPM240 : BPM75;
+        BPM240: next_tempo = tempo_button ? BPM320 : BPM240; 
+        BPM320: next_tempo = tempo_button ? BPM480 : BPM320;
+        BPM480: next_tempo = tempo_button ? BPM120 : BPM480;
+        BPM120: next_tempo = tempo_button ? BPM240 : BPM120;
         default: next_tempo = BPM240;
         endcase 
 
