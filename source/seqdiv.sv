@@ -20,12 +20,14 @@ module seqdiv
 (
   input logic [18:0] count, dsor,
   input logic sample, clk, RST,
-  output logic [7:0] Q_out,
-  output logic done
+  output logic [8:0] Q_out,
+  output logic done,
+  output logic [18:0] count_m, divisor_m
 );
   logic [27:0] part1_A, part1_Q, next_Q, Q, next_M, M, next_A, A; 
   logic [5:0] next_C, C; //counter variables to determine how many clock cycles have passed
   logic start, next_start, dived, next_dived;
+  logic [18:0] count_store, divisor_store;
 
   always_comb begin
     
@@ -37,6 +39,9 @@ module seqdiv
       part1_A = 0;
       part1_Q = 0;
       done = 0;
+
+      count_store = count;
+      divisor_store = dsor;
 
       next_start = 1;               //tells the divider to start only when the sample signal has been asserted
       next_dived = 0;
@@ -69,6 +74,9 @@ module seqdiv
       next_dived = 1; 
 
       Q_out = 0;
+
+      count_store = count_m;
+      divisor_store = divisor_m;
     end
     else if (dived) begin               //checks if a value has been previously divided (used to make sure done signal is not asserted on RST)
       done = 1; 
@@ -82,7 +90,10 @@ module seqdiv
       next_start = 0;
       next_dived = 0;   //was 1
 
-      Q_out = Q[7:0];
+      count_store = count_m;
+      divisor_store = divisor_m;
+
+      Q_out = Q[8:0];
     end
     else begin
       done = 0; 
@@ -96,7 +107,10 @@ module seqdiv
       next_start = 0;
       next_dived = 0;
 
-      Q_out = Q[7:0];
+      Q_out = Q[8:0];
+
+      count_store = count_m;
+      divisor_store = divisor_m;
     end
   end
   
@@ -118,6 +132,17 @@ module seqdiv
 
       start <= next_start;
       dived <= next_dived;
+    end
+  end
+
+  always_ff @(posedge clk, negedge RST) begin
+    if(!RST) begin
+      count_m <= 0;
+      divisor_m <= 0;
+    end
+    else begin
+      count_m <= count_store;
+      divisor_m <= divisor_store;
     end
   end
 endmodule
