@@ -8,9 +8,9 @@
 //    beat_pulse -> A pulse which delays the system clock signal down to the desired tempo of the sequencer, sends pulse to measure counter telling it when to count
 /*************************************************************************************************************/
 
-module sequencer_clk_div (input logic sequencer_on, clk, n_rst, input logic [22:0] tempo, output logic beat_pulse);
+module sequencer_clk_div (input logic sequencer_on, clk, n_rst, input logic [21:0] tempo, output logic beat_pulse);
 
-    logic [22:0]count, next_count;
+    logic [21:0]count, next_count;
 
     always_ff @(posedge clk, negedge n_rst) begin
         if(n_rst)

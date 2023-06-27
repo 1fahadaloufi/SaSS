@@ -14,7 +14,7 @@ module sequencer (input logic [10:0]keys, input logic clk, n_rst, output logic [
     logic [7:0] toggle;
     logic [3:0] beat;
     logic [3:0]note_sus1, note_sus2, note_sus3, note_sus4, note_sus5, note_sus6, note_sus7, note_sus8;
-    logic [22:0] tempo;
+    logic [21:0] tempo;
 
     sequencer_encoder encode (.keys(keys), .clk(clk), .n_rst(n_rst), .toggle(toggle), .sequencer_on(sequencer_on), .play(play), .tempo_button(tempo_button));
     tempo_select tempo_select (.tempo_button(tempo_button), .clk(clk), .n_rst(n_rst), .tempo(tempo));
@@ -58,7 +58,7 @@ module sequencer (input logic [10:0]keys, input logic clk, n_rst, output logic [
                           .note_sustain(note_sus7));
     sequencer_player #(.PLAY_ON(14)) player_8
                          (.toggle(toggle[7]), 
-                          .beat(beat), 
+                          .beat(beat),
                           .sequencer_on(sequencer_on), .clk(clk), .n_rst(n_rst),
                           .note_sustain(note_sus8));
 
