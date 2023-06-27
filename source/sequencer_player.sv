@@ -19,6 +19,7 @@ module sequencer_player #(parameter PLAY_ON = 0)
 
     logic [3:0]state, next_state, note, next_note_sustain; // States for note values
 
+
     parameter [3:0] OFF = 4'd0;
     parameter [3:0] lowC = 4'd1;
     parameter [3:0] C_sharp = 4'd2;
@@ -76,5 +77,6 @@ module sequencer_player #(parameter PLAY_ON = 0)
     end
 
     assign note_sustain = note;
+
 
 endmodule
