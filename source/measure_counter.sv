@@ -1,6 +1,6 @@
-module measure_counter (input logic play, beat_pulse, clk, n_rst, output logic [2:0]beat);
+module measure_counter (input logic play, beat_pulse, clk, n_rst, output logic [3:0]beat);
 
-    logic [2:0]next_beat;
+    logic [3:0]next_beat;
 
     always_ff @(posedge clk, negedge n_rst) begin
         if(n_rst)
@@ -11,7 +11,7 @@ module measure_counter (input logic play, beat_pulse, clk, n_rst, output logic [
 
     always_comb begin
         if(beat_pulse & play) begin
-            if(beat == 7)
+            if(beat == 15)
             next_beat = 0;
             else
             next_beat = beat + 1;

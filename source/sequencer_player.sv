@@ -13,7 +13,7 @@
 
 module sequencer_player #(parameter PLAY_ON = 0)
                          (input logic toggle, 
-                          input logic [2:0]beat, 
+                          input logic [3:0]beat, 
                           input logic sequencer_on, clk, n_rst,
                           output logic [3:0]note_sustain);
 

@@ -12,7 +12,7 @@ module sequencer (input logic [9:0]keys, input logic clk, n_rst, output logic [3
 
     logic play, beat_pulse;
     logic [7:0] toggle;
-    logic [2:0] beat;
+    logic [3:0] beat;
     logic [3:0]note_sus1, note_sus2, note_sus3, note_sus4, note_sus5, note_sus6, note_sus7, note_sus8;
 
     sequencer_encoder encode (.keys(keys), .clk(clk), .n_rst(n_rst), .toggle(toggle), .sequencer_on(sequencer_on), .play(play));
@@ -24,37 +24,37 @@ module sequencer (input logic [9:0]keys, input logic clk, n_rst, output logic [3
                           .beat(beat), 
                           .sequencer_on(sequencer_on), .clk(clk), .n_rst(n_rst),
                           .note_sustain(note_sus1));
-    sequencer_player #(.PLAY_ON(1)) player_2
+    sequencer_player #(.PLAY_ON(2)) player_2
                          (.toggle(toggle[1]), 
                           .beat(beat), 
                           .sequencer_on(sequencer_on), .clk(clk), .n_rst(n_rst),
                           .note_sustain(note_sus2));
-    sequencer_player #(.PLAY_ON(2)) player_3
+    sequencer_player #(.PLAY_ON(4)) player_3
                          (.toggle(toggle[2]), 
                           .beat(beat), 
                           .sequencer_on(sequencer_on), .clk(clk), .n_rst(n_rst),
                           .note_sustain(note_sus3));
-    sequencer_player #(.PLAY_ON(3)) player_4
+    sequencer_player #(.PLAY_ON(6)) player_4
                          (.toggle(toggle[3]), 
                           .beat(beat), 
                           .sequencer_on(sequencer_on), .clk(clk), .n_rst(n_rst),
                           .note_sustain(note_sus4));
-    sequencer_player #(.PLAY_ON(4)) player_5
+    sequencer_player #(.PLAY_ON(8)) player_5
                          (.toggle(toggle[4]), 
                           .beat(beat), 
                           .sequencer_on(sequencer_on), .clk(clk), .n_rst(n_rst),
                           .note_sustain(note_sus5));
-    sequencer_player #(.PLAY_ON(5)) player_6
+    sequencer_player #(.PLAY_ON(10)) player_6
                          (.toggle(toggle[5]), 
                           .beat(beat), 
                           .sequencer_on(sequencer_on), .clk(clk), .n_rst(n_rst),
                           .note_sustain(note_sus6));
-    sequencer_player #(.PLAY_ON(6)) player_7
+    sequencer_player #(.PLAY_ON(12)) player_7
                          (.toggle(toggle[6]), 
                           .beat(beat), 
                           .sequencer_on(sequencer_on), .clk(clk), .n_rst(n_rst),
                           .note_sustain(note_sus7));
-    sequencer_player #(.PLAY_ON(7)) player_8
+    sequencer_player #(.PLAY_ON(14)) player_8
                          (.toggle(toggle[7]), 
                           .beat(beat), 
                           .sequencer_on(sequencer_on), .clk(clk), .n_rst(n_rst),
