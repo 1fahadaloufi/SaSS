@@ -14,7 +14,7 @@ module tempo_select (input logic tempo_button, clk, n_rst, output logic [21:0]te
     logic [21:0]next_tempo;
     parameter BPM120 = 22'd2499999;
     parameter BPM240 = 22'd1249999;
-    parameter BPM480 = 22'd625000;
+    parameter BPM480 = 22'd624999;
     parameter BPM320 = 22'd937499;
 
 
