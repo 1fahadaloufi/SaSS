@@ -8,15 +8,17 @@
 //    note_sustain -> Outputted value of note to be played. Delayed so that it lasts more than one clock cycle
 /*************************************************************************************************************/
 
-module sequencer (input logic [9:0]keys, input logic clk, n_rst, output logic [3:0]note_sustain, output logic sequencer_on, output logic [7:0]to_led);
+module sequencer (input logic [10:0]keys, input logic clk, n_rst, output logic [3:0]note_sustain, output logic sequencer_on, output logic [7:0]to_led);
 
-    logic play, beat_pulse;
+    logic play, beat_pulse, tempo_button;
     logic [7:0] toggle;
     logic [3:0] beat;
     logic [3:0]note_sus1, note_sus2, note_sus3, note_sus4, note_sus5, note_sus6, note_sus7, note_sus8;
+    logic [22:0] tempo;
 
-    sequencer_encoder encode (.keys(keys), .clk(clk), .n_rst(n_rst), .toggle(toggle), .sequencer_on(sequencer_on), .play(play));
-    sequencer_clk_div clk_div (.sequencer_on(sequencer_on), .clk(clk), .n_rst(n_rst), .beat_pulse(beat_pulse));
+    sequencer_encoder encode (.keys(keys), .clk(clk), .n_rst(n_rst), .toggle(toggle), .sequencer_on(sequencer_on), .play(play), .tempo_button(tempo_button));
+    tempo_select tempo_select (.tempo_button(tempo_button), .clk(clk), .n_rst(n_rst), .tempo(tempo));
+    sequencer_clk_div clk_div (.sequencer_on(sequencer_on), .clk(clk), .n_rst(n_rst), .beat_pulse(beat_pulse), .tempo(tempo));
     measure_counter measure_counter (.play(play), .beat_pulse(beat_pulse), .clk(clk), .n_rst(n_rst), .beat(beat));
     beat_to_led_dec dec (.beat(beat), .to_led(to_led), .sequencer_on(sequencer_on));
     sequencer_player #(.PLAY_ON(0)) player_1

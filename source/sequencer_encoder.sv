@@ -1,8 +1,20 @@
-module sequencer_encoder (input logic [9:0]keys, input logic clk, n_rst, output logic [7:0]toggle, output logic sequencer_on, play);
+/************************************************************************************************************/
+// Inputs:
+//    keys -> Input keys to be used for the scyncroniser [9:2] are used for syncronyser toggle between notes, 1 is used for syncroniser_on and 0 is used for pause/play
+//    clk -> 10kHz clock
+//    n_rst -> Async negative reset, resets when n_rst is 0
+//
+// Outputs:
+//    toggle -> Outputted edge-detected signal of each button for each beat in sycnronyser pressed
+//    sequencer_on -> A 1 or 0 value which denotes that the chip is in sequencer mode if 1 and piano mode if 0
+//    play -> A play/pause signal which when 1 allows the measure counter to continue counting through measures and when 0 pauses the sequencer
+/*************************************************************************************************************/
 
-    // First 8 keys (9:2) are used for toggles 7:0, key 1 is for sequencer_on, and key 0 is for play
+module sequencer_encoder (input logic [10:0]keys, input logic clk, n_rst, output logic [7:0]toggle, output logic sequencer_on, play, tempo_button);
 
-    logic [9:0]inter_keys, keys_sync, keys_edge_det, keys_pos_edge; // Intermiediate signal for keys in syncronyser
+    // First key is used for tempo select, next 8 keys (9:2) are used for toggles 7:0, key 1 is for sequencer_on, and key 0 is for play
+
+    logic [10:0]inter_keys, keys_sync, keys_edge_det, keys_pos_edge; // Intermiediate signal for keys in syncronyser
     logic next_play, next_sequencer_on;
 
 // Syncroniser
@@ -28,6 +40,7 @@ module sequencer_encoder (input logic [9:0]keys, input logic clk, n_rst, output 
 
     assign keys_pos_edge = (keys_sync & ~keys_edge_det); // Edge detected key signals
     assign toggle = keys_pos_edge[9:2];
+    assign tempo_button = keys_pos_edge[10];
 
 // Key value sustainer
     always_ff @(posedge clk, negedge n_rst) begin 

@@ -17,6 +17,7 @@ module tempo_select (input logic tempo_button, clk, n_rst, output logic [22:0]te
     parameter BPM75 = 23'd3999999;
     parameter BPM100 = 23'd2999999;
 
+
     always_ff @(posedge clk, negedge n_rst) begin
         if(n_rst)
         tempo <= next_tempo;

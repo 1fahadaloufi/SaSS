@@ -1,4 +1,14 @@
-module sequencer_clk_div (input logic sequencer_on, clk, n_rst, output logic beat_pulse);
+/************************************************************************************************************/
+// Inputs:
+//    sequencer_on -> A 1 or 0 value which denotes that the chip is in sequencer mode if 1 and piano mode if 0
+//    clk -> 10kHz clock
+//    n_rst -> Async negative reset, resets when n_rst is 0
+//
+// Outputs:
+//    beat_pulse -> A pulse which delays the system clock signal down to the desired tempo of the sequencer, sends pulse to measure counter telling it when to count
+/*************************************************************************************************************/
+
+module sequencer_clk_div (input logic sequencer_on, clk, n_rst, input logic [22:0] tempo, output logic beat_pulse);
 
     logic [22:0]count, next_count;
 
@@ -11,7 +21,7 @@ module sequencer_clk_div (input logic sequencer_on, clk, n_rst, output logic bea
 
     always_comb
         if(sequencer_on) begin
-            if(count == 4999999) begin
+            if(count == tempo) begin
                 beat_pulse = 1;
                 next_count = 0;
             end
