@@ -12,39 +12,21 @@
 //    ready -> 1 or 0 value asserted when the output of the waveform combiner is valid and ready to be taken
 //    comb_waveform -> Final combined waveform value to be outputed to pwm
 /*************************************************************************************************************/
+`default_nettype none
+module new_waveform_comb (input logic [2:0]num_signals, input logic done, input logic clk, n_rst, input logic [8:0]sample1, sample2, sample3, sample4, output logic ready, output logic [8:0] comb_waveform);
 
-module waveform_comb (input logic [2:0]num_signals, input logic done[3:0], input logic clk, n_rst, input logic [7:0]sample1, sample2, output logic ready, output logic [7:0] comb_waveform);
-
-    logic [8:0] new_sample1, new_sample2, sum, inter_waveform; // Creating new varibales with one extra bit to handle overflow when adding
-    logic [2:0] sum_dones; // Number of done signals detected
+    logic [10:0] new_sample1, new_sample2, new_sample3, new_sample4, sum;
+    logic [10:0] inter_waveform; // Creating new varibales with one extra bit to handle overflow when adding
 
     // Inter_waveform is just an intermediate value for the waveform which stores it in 9 bits instead of 8, the final wavbeform takes the last 8 of it
 
-    assign new_sample1 = {1'b0, sample1}; // Appending one zero on the most significant bit of input numbers to aviod bit length issues
-    assign new_sample2 = {1'b0, sample2}; // Appending one zero on the most significant bit of input numbers to aviod bit length issues
-    assign comb_waveform = inter_waveform[7:0]; // Seting output waveform to last 8 bits of the extended 9 bit intermediate waveform
-    assign sum_dones = {2'b0,done[0]} + {2'b0, done[1]} + {2'b0, done[2]} + {2'b0, done[3]};
+    assign new_sample1 = {2'b0, sample1}; // Appending one zero on the most significant bit of input numbers to aviod bit length issues
+    assign new_sample2 = {2'b0, sample2}; // Appending one zero on the most significant bit of input numbers to aviod bit length issues
+    assign new_sample3 = {2'b0, sample3}; 
+    assign new_sample4 = {2'b0, sample4}; 
+    //assign comb_waveform = inter_waveform[8:0]; // Seting output waveform to last 8 bits of the extended 9 bit intermediate waveform
 
-    always_comb begin
-
-        if(|num_signals) begin // Executed only when multiple voices are detected
-            if(sum_dones == num_signals) begin
-                sum = new_sample1 + new_sample2; // Adding the two waves
-                inter_waveform = (sum >> 1); // Dividing by two
-                ready = 1'b1; // Setting ready signal to 1
-            end
-            else begin // If both signals are not yet ready all intermediate sums and waveforms are set to 0, it is not ready yet
-                sum = 0;
-                inter_waveform = 9'b0;
-                ready = 0;    
-            end
-        end
-        else begin // If only one voice is detected it will just pass through without being changed
-            sum = new_sample1;
-            inter_waveform = new_sample1;
-            ready = done1;
-        end
-    end
-
+    assign sum = new_sample1 + new_sample2 + new_sample3 + new_sample4;
+    seqdiv_comb u1 (.sample_part(sum), .voice(num_signals), .sample(done), .clk(clk), .RST(n_rst), .sample_comb(comb_waveform), .done(ready));
 
 endmodule
