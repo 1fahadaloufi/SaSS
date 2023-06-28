@@ -10,7 +10,7 @@
 //    play -> A play/pause signal which when 1 allows the measure counter to continue counting through measures and when 0 pauses the sequencer
 /*************************************************************************************************************/
 
-module sequencer_encoder (input logic [10:0]keys, input logic clk, n_rst, output logic [7:0]toggle, output logic sequencer_on, play, tempo_button);
+module sequencer_encoder (input logic [10:0]keys, input logic clk, n_rst, output logic [7:0]toggle, button_press, output logic sequencer_on, play, tempo_button);
 
     // First key is used for tempo select, next 8 keys (9:2) are used for toggles 7:0, key 1 is for sequencer_on, and key 0 is for play
 
@@ -41,6 +41,7 @@ module sequencer_encoder (input logic [10:0]keys, input logic clk, n_rst, output
     assign keys_pos_edge = (keys_sync & ~keys_edge_det); // Edge detected key signals
     assign toggle = keys_pos_edge[9:2];
     assign tempo_button = keys_pos_edge[10];
+    assign button_press = keys_sync[9:2];
 
 // Key value sustainer
     always_ff @(posedge clk, negedge n_rst) begin 

@@ -13,6 +13,7 @@
 
 module sequencer_player #(parameter PLAY_ON = 0)
                          (input logic toggle, 
+                          input logic button_press,
                           input logic [3:0]beat, 
                           input logic sequencer_on, clk, n_rst,
                           output logic [3:0]note_sustain);
@@ -68,7 +69,7 @@ module sequencer_player #(parameter PLAY_ON = 0)
                     default: next_state = OFF;
                 endcase
 
-                note = ((PLAY_ON == beat) || toggle) ? state : 0;
+                note = ((PLAY_ON == beat) || button_press) ? state : 0;
         end
         else begin
             note = 0;
