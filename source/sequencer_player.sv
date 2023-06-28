@@ -68,7 +68,7 @@ module sequencer_player #(parameter PLAY_ON = 0)
                     default: next_state = OFF;
                 endcase
 
-                note = (PLAY_ON == beat) ? state : 0;
+                note = ((PLAY_ON == beat) || toggle) ? state : 0;
         end
         else begin
             note = 0;
