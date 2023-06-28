@@ -21,7 +21,10 @@ module oscilator (input logic clk, nrst, input logic [18:0] max, output logic [1
   end
 
   always_comb begin
-    
+    if(max == 19'd370000) begin
+      next_count = 19'd1;
+    end
+    else begin
       if(count == max) begin
         next_count = 1; // Once the count hits the inputted max (divider) it wraps to 1
       end
@@ -30,5 +33,6 @@ module oscilator (input logic clk, nrst, input logic [18:0] max, output logic [1
       end
 
     end 
+  end
 
 endmodule
