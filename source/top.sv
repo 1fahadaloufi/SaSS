@@ -24,6 +24,7 @@ module top
                    .pwm_o(left[7]),
                    .seq_led_on(red),
                    .beat_led(right),
-                   .mode_out(left[1:0]));
+                   .mode_out(left[1:0]),
+                   .cs(pb[15]));
   
 endmodule
