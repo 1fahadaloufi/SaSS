@@ -1,4 +1,5 @@
 module sass_synth (input logic [14:0] piano_keys,
+                   input logic cs,
                    input logic n_rst, hwclk,
                    input logic tempo_select, seq_power, seq_play,
                    output logic pwm_o, seq_led_on,
@@ -15,6 +16,36 @@ logic [3:0] note;
   logic [3:0] multi;
   logic [3:0] note1, note2, note3, note4, pnote1, pnote2, pnote3, pnote4, snote;
   logic seq_on;
+  logic pwm_o_on;
+
+  logic tempo_select_on;
+  logic seq_led_on_on;
+  logic seq_play_on;
+  logic seq_power_on;
+  logic [7:0] beat_led_on;
+  logic [1:0] mode_on;
+
+   always_comb begin
+    if(!cs) begin   //when chip is on
+        pwm_o = pwm_o_on;
+        tempo_select_on = tempo_select;
+        seq_power_on = seq_power;
+        seq_play_on = seq_play;
+        beat_led = beat_led_on;
+        seq_led_on = seq_led_on_on;
+        mode = mode_on;
+    end
+    else begin      //when chip is off
+        pwm_o = 0;
+        tempo_select_on = 0;
+        seq_power_on = 0;
+        seq_play_on = 0;
+        beat_led = 0;
+        seq_led_on = 0;
+        mode = 0;
+    end
+   end
+    
 
   inputandcontroller inputcont (.INPUT_keypad_i(piano_keys),
                                 .INPUT_clk(hwclk),
@@ -32,14 +63,14 @@ logic [3:0] note;
                .nrst(n_rst),
                .state(octave));
 
-  sequencer seq (.keys({tempo_select, piano_keys[7:0], seq_power, seq_play}), 
+  sequencer seq (.keys({tempo_select_on, piano_keys[7:0], seq_power_on, seq_play_on}), 
                  .clk(hwclk), 
                  .n_rst(n_rst), 
                  .note_sustain(snote), 
-                 .to_led(beat_led),
+                 .to_led(beat_led_on),
                  .sequencer_on(seq_on));
 
-  assign seq_led_on = seq_on;
+  assign seq_led_on_on = seq_on;
 
   sequencer_piano_select select1 (.sequencer_on(seq_on),
                                  .piano_note(note1),
@@ -100,7 +131,7 @@ logic [3:0] note;
   waveform_fsm wave (.mode_key(sync_mode),
                      .clk(hwclk),
                      .n_rst(n_rst),
-                     .mode(mode));
+                     .mode(mode_on));
 
   std_rate_clk_div rate_clk (.clk(hwclk),
                              .nrst(n_rst),
@@ -122,7 +153,7 @@ logic [3:0] note;
           .n_rst(n_rst),
           .ready(ready),
           .comb_waveform(comb_waveform),
-          .pwm_o(pwm_o));  
+          .pwm_o(pwm_o_on));  
 
     assign mode_out = mode;
 endmodule
