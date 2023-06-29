@@ -21,7 +21,7 @@ module new_waveform_comb (input logic [2:0]num_signals, input logic done, input 
     logic [8:0] comb_waveform_i;
     logic ready_i;
 
-    // Inter_waveform is just an intermediate value for the waveform which stores it in 9 bits instead of 8, the final wavbeform takes the last 8 of it
+    // Inter_waveform is just an intermediate value for the waveform which stores it in 9 bits instead of 8, the final waveform takes the last 8 of it
 
     assign new_sample1 = {2'b0, sample1}; // Appending one zero on the most significant bit of input numbers to aviod bit length issues
     assign new_sample2 = {2'b0, sample2}; // Appending one zero on the most significant bit of input numbers to aviod bit length issues
@@ -32,7 +32,7 @@ module new_waveform_comb (input logic [2:0]num_signals, input logic done, input 
     assign sum = new_sample1 + new_sample2 + new_sample3 + new_sample4;
     seqdiv_comb u1 (.sample_part(sum), .voice(num_signals), .sample(done), .clk(clk), .RST(n_rst), .sample_comb(comb_waveform_i), .done(ready_i));
     always_comb begin
-        if(seq_on) begin
+        if(seq_on || num_signals == 3'b0) begin
             comb_waveform = sample1;
             ready = done;
         end
