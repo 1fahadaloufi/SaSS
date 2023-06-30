@@ -1,19 +1,56 @@
 # STARS 2023 Design Final Project
 
-## insert an image for the project
 
-## [Team Name]
-* Team Member 1
-* Team Member 2
-* Team Member 3
-* Team Member 4
-* Project Manager  
+## SaSS: Silicon Allowing Sound Synthesis
+* Sydney Cozart
+* Elena Lehner
+* Connor Mehan
+* Alex Rodriguez-Gonzalez​
+* Fahad Aloufi
 
-## [Project Name]
-Description of functionality, how to use it, and any supporting equipment required. Here also link to the user manual document within the github repository. 
+## Synth & Sequencer
+This project is an ASIC for a synthesizer that takes in 13 "piano key" inputs and outputs their corresponding sounds. The synthesizer features 3 different waveforms to choose from: square, sawtooth, and triangle. The synthesizer also has an octave mode allowing the user to cycle through 7 possible octaves.
+
+In addition to "piano mode," the ASIC also has a sequencer mode. The sequencer mode has 8 beats whose notes can be edited to form a repeating sound pattern. Within sequencer mode, the tempo can be adjusted between 4 settings.
 
 ## Pin Layout
-Put all the GPIO pin numbers, i/o/io determination, and labels. Start labeling the GPIOs from 0 to 33 rather than from 4 - 37. 
+1: C; sequencer note 1
+
+2: C#; sequencer note 2
+
+3: D; sequencer note 3
+
+4: D#; sequencer note 4
+
+5: E; sequencer note 5
+
+6: F; sequencer note 6
+
+7: F#; sequencer note 7
+
+8: G; sequencer note 8
+
+9: G#
+
+10: A
+
+11: A#
+
+12: B
+
+13: C
+
+14: waveform mode
+
+15: octave mode
+
+16: sequencer/piano mode
+
+17: sequencer tempo
+
+18: sequencer play/pause
+
+
 
 ## Supporting Equipment
 List all the required equipment and upload a breadboard with the equipment set up (recommend using tinkercad circuits if possible)
