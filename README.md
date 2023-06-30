@@ -14,27 +14,49 @@ In addition to "piano mode," the ASIC also has a sequencer mode. The sequencer m
 
 ## Pin Layout
 0: -
+
 1: -
+
 2: -
+
 3: -
+
 4: C; sequencer note 1
+
 5: C#; sequencer note 2
+
 6: D; sequencer note 3
+
 7: D#; sequencer note 4
+
 8: E; sequencer note 5
+
 9: F; sequencer note 6
+
 10: F#; sequencer note 7
+
 11: G; sequencer note 8
+
 12: G#
+
 13: A
+
 14: A#
+
 15: B
+
 16: C
+
 17: waveform mode
+
 18: octave mode
+
 19: sequencer/piano mode
+
 20: sequencer tempo
+
 21: sequencer play/pause
+
 
 ## Supporting Equipment
 List all the required equipment and upload a breadboard with the equipment set up (recommend using tinkercad circuits if possible)
