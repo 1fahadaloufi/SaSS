@@ -39,7 +39,7 @@ always_comb begin
    4'd11: divider = 19'd205936 >> octave; //A#
    4'd12: divider = 19'd194378 >> octave; //B
    4'd13: divider = 19'd183468 >> octave; //C
-   default: divider = 19'd1; //Off
+   default: divider = 19'd370000; //Off
   endcase
 end
 endmodule

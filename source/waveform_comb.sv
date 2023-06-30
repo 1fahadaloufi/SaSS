@@ -13,15 +13,15 @@
 //    comb_waveform -> Final combined waveform value to be outputed to pwm
 /*************************************************************************************************************/
 
-module waveform_comb (input logic multi, done1, done2, input logic [7:0]sample1, sample2, output logic ready, output logic [7:0] comb_waveform);
+module waveform_comb (input logic multi, done1, done2, input logic [8:0]sample1, sample2, output logic ready, output logic [8:0] comb_waveform);
 
-    logic [8:0] new_sample1, new_sample2, sum, inter_waveform; // Creating new varibales with one extra bit to handle overflow when adding
+    logic [9:0] new_sample1, new_sample2, sum, inter_waveform; // Creating new varibales with one extra bit to handle overflow when adding
 
     // Inter_waveform is just an intermediate value for the waveform which stores it in 9 bits instead of 8, the final wavbeform takes the last 8 of it
 
     assign new_sample1 = {1'b0, sample1}; // Appending one zero on the most significant bit of input numbers to aviod bit length issues
     assign new_sample2 = {1'b0, sample2}; // Appending one zero on the most significant bit of input numbers to aviod bit length issues
-    assign comb_waveform = inter_waveform[7:0]; // Seting output waveform to last 8 bits of the extended 9 bit intermediate waveform
+    assign comb_waveform = inter_waveform[8:0]; // Seting output waveform to last 8 bits of the extended 9 bit intermediate waveform
 
     always_comb begin
 
@@ -33,7 +33,7 @@ module waveform_comb (input logic multi, done1, done2, input logic [7:0]sample1,
             end
             else begin // If both signals are not yet ready all intermediate sums and waveforms are set to 0, it is not ready yet
                 sum = 0;
-                inter_waveform = 9'b0;
+                inter_waveform = 10'b0;
                 ready = 0;    
             end
         end

@@ -9,30 +9,31 @@
 //    tempo -> 23 bit value which determines the rate at which the measure counter counts
 /*************************************************************************************************************/
 
-module tempo_select (input logic tempo_button, clk, n_rst, output logic [22:0]tempo);
+module tempo_select (input logic tempo_button, clk, n_rst, output logic [21:0]tempo);
 
-    logic [22:0]next_tempo;
-    parameter BPM120 = 23'd2499999;
-    parameter BPM240 = 23'd1249999;
-    parameter BPM75 = 23'd3999999;
-    parameter BPM100 = 23'd2999999;
+    logic [21:0]next_tempo;
+    parameter BPM120 = 22'd2499999;
+    parameter BPM240 = 22'd1249999;
+    parameter BPM480 = 22'd624999;
+    parameter BPM320 = 22'd937499;
 
+    logic [1:0]state, next_state;
 
     always_ff @(posedge clk, negedge n_rst) begin
         if(n_rst)
-        tempo <= next_tempo;
+        state <= next_state;
         else
-        tempo <= BPM240;
+        state <= 0;
     end
 
     always_comb begin
 
-        case(tempo)
-        BPM240: next_tempo = tempo_button ? BPM120 : BPM240; 
-        BPM120: next_tempo = tempo_button ? BPM100 : BPM120;
-        BPM100: next_tempo = tempo_button ? BPM75 : BPM100;
-        BPM75: next_tempo = tempo_button ? BPM240 : BPM75;
-        default: next_tempo = BPM240;
+        case(state)
+        2'd0: begin next_state = tempo_button ? 2'd1 : 2'd0; tempo = BPM240; end
+        2'd1: begin next_state = tempo_button ? 2'd2 : 2'd1; tempo = BPM320; end
+        2'd2: begin next_state = tempo_button ? 2'd3 : 2'd2; tempo = BPM480; end
+        2'd3: begin next_state = tempo_button ? 2'd0 : 2'd3; tempo = BPM120; end
+        default: begin next_state = 2'd0; tempo = BPM240; end
         endcase 
 
     end

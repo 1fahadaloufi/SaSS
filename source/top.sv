@@ -15,5 +15,16 @@ module top
   input  logic txready, rxready
 );
 
-
+  sass_synth sass (.piano_keys(pb[14:0]),
+                   .n_rst(~pb[16]),
+                   .hwclk(hwclk),
+                   .tempo_select(pb[19]),
+                   .seq_power(pb[18]),
+                   .seq_play(pb[17]),
+                   .pwm_o(left[7]),
+                   .seq_led_on(red),
+                   .beat_led(right),
+                   .mode_out(left[1:0]),
+                   .cs(pb[15]));
+  
 endmodule

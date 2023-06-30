@@ -15,22 +15,22 @@ export LD_LIBRARY_PATH := /home/shay/a/ece270/lib:$(LD_LIBRARY_PATH)
 
 # Specify the name of the top level file (do not include the source folder in the name)
 # NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS
-TOP_FILE         := 
+TOP_FILE         := #sass_synth.sv
 
 # List internal component/block files here (separate the filenames with spaces)
 # NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS
-COMPONENT_FILES  := 
+COMPONENT_FILES  := lookup_table.sv oscilator.sv seqdiv.sv waveshaper.sv pwm.sv soundpath.sv std_rate_clk_div.sv waveform_fsm.sv inputandcontroller.sv oct_fsm.sv new_waveform_comb.sv seqdiv_comb.sv sequencer.sv sequencer_player.sv tempo_select.sv sequencer_encoder.sv sequencer_clk_div.sv measure_counter.sv beat_to_led_dec.sv sequencer_piano_select.sv sass_synth.sv
 
 # Specify the filepath of the test bench you want to use (ie. tb_top_level.sv)
 # (do not include the source folder in the name)
-TB               :=  
+TB               := tb_sass_synth.sv
 
 # Get the top level design and test_bench module names
 TB_MODULE		 := $(notdir $(basename $(TB)))
 TOP_MODULE	     := $(notdir $(basename $(TOP_FILE)))
 
 # Simulation
-WF               ?= 0
+WF               ?= sassWaveform
 
 # Directries where the source and mapped code is located
 SRC              := source

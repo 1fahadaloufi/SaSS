@@ -1,5 +1,6 @@
 # STARS 2023 Design Final Project
 
+
 ## SaSS: Silicon Allowing Sound Synthesis
 * Sydney Cozart
 * Elena Lehner
@@ -50,12 +51,11 @@ In addition to "piano mode," the ASIC also has a sequencer mode. The sequencer m
 18: sequencer play/pause
 
 
+
 ## Supporting Equipment
 List all the required equipment and upload a breadboard with the equipment set up (recommend using tinkercad circuits if possible)
 
 ## RTL Diagrams
-All the stuff from the proposal goes here, obviously updated from the time you did the proposal to the final layout
-Include more than just block diagrams, including sub-block diagrams, state-transition diagrams, flowcharts, and timing diagrams
+Only show and describe your top-level RTL that shows the total # of flip flops here. For the rest of your RTLs, link to a "docs" directory within the GitHub page
+that shows all component RTLs, state diagrams, and the top level RTL. Please have those as a PDF or a JPEG. 
 
-## Statement from Purdue
-Pending

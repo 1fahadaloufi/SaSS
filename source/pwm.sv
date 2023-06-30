@@ -10,10 +10,10 @@
 /*************************************************************************************************************/
 
 
-module pwm (input logic [7:0]comb_waveform, input logic clk, n_rst, ready, output logic pwm_o);
+module pwm (input logic [8:0]comb_waveform, input logic clk, n_rst, ready, output logic pwm_o);
 
-    logic [7:0]count, next_count; // Delaring local use variables, count stores current count and next_count is for flip-flop
-    logic [7:0]current_waveform, next_waveform; // Declaring waveform values to be used in flip-flop storage
+    logic [8:0]count, next_count; // Delaring local use variables, count stores current count and next_count is for flip-flop
+    logic [8:0]current_waveform, next_waveform; // Declaring waveform values to be used in flip-flop storage
     logic next_pwm_o; // Declaring a flip-flop value for the output to get rid of ghost signals
 
     always_ff @ (posedge clk, negedge n_rst) begin
@@ -23,7 +23,7 @@ module pwm (input logic [7:0]comb_waveform, input logic clk, n_rst, ready, outpu
         end
         else begin
             count <= 0; // Count resets to zero if reset
-            current_waveform <= 8'd0;
+            current_waveform <= 9'd0;
         end
     end
 
@@ -34,7 +34,7 @@ module pwm (input logic [7:0]comb_waveform, input logic clk, n_rst, ready, outpu
         else 
         next_waveform = current_waveform;
 
-        next_count = (count == 8'd255) ? 8'd0 : (count + 1); // If the count = 255 it wraps to zero, if not it adds 1
+        next_count = (count == 9'd255) ? 9'd0 : (count + 1); // If the count = 255 it wraps to zero, if not it adds 1
 
         if(count < current_waveform)
             next_pwm_o = 1; // PWM 1 when its count is less than inputted value from waveform combiner
