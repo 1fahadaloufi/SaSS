@@ -2,14 +2,14 @@
 
 ## insert an image for the project
 
-## [Team Name]
-* Team Member 1
-* Team Member 2
-* Team Member 3
-* Team Member 4
-* Project Manager  
+SaSS (Silicon allowing Sound Systems)
+* Sydney Cozart
+* Elena Lehner
+* Connor Mehan
+* Alex Rodriguez-Gonzalez
+* Fahad Aloufi  
 
-## [Project Name]
+Audio Synthesizer
 Description of functionality, how to use it, and any supporting equipment required. Here also link to the user manual document within the github repository. 
 
 ## Pin Layout
