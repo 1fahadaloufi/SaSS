@@ -6,7 +6,7 @@
 * Elena Lehner
 * Connor Mehan
 * Alex Rodriguez-Gonzalez​
-* Fahad Aloufi
+* TA: Fahad Aloufi
 
 ## Synth & Sequencer
 This project is an ASIC for a synthesizer that takes in 13 "piano key" inputs and outputs their corresponding sounds. The synthesizer features 3 different waveforms to choose from: square, sawtooth, and triangle. The synthesizer also has an octave mode allowing the user to cycle through 7 possible octaves.
