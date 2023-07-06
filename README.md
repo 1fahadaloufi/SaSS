@@ -74,10 +74,16 @@ In addition to "piano mode," the ASIC also has a sequencer mode. The sequencer m
 
 29: PWM source
 
+
+Using the above pin mappings, you can assemble your circuit according to the following circuit diagram. 
+![Circuit Diagram](./docs/circuit_diagram.png)
+
+You will notice the GPIO header at the top left. With the GPIO header, it is starting from GPIO 0 at the very left. 
+
 ## Supporting Equipment
 List all the required equipment and upload a breadboard with the equipment set up (recommend using tinkercad circuits if possible)
 
 ## RTL Diagrams
-Only show and describe your top-level RTL that shows the total # of flip flops here. For the rest of your RTLs, link to a "docs" directory within the GitHub page
-that shows all component RTLs, state diagrams, and the top level RTL. Please have those as a PDF or a JPEG. 
+Below is a top-level RTL diagram explaining the architecture of our design: 
+![Top Level RTL](./docs/TopRTL.png)
 
