@@ -77,7 +77,6 @@ In addition to "piano mode," the ASIC also has a sequencer mode. The sequencer m
 
 Using the above pin mappings, you can assemble your circuit according to the following circuit diagram. 
 ![Circuit Diagram](./docs/circuit_diagram.png)
-
 You will notice the GPIO header at the top left. With the GPIO header, it is starting from GPIO 0 at the very left. 
 
 ## Supporting Equipment
