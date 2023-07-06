@@ -13,6 +13,12 @@ This project is an ASIC for a synthesizer that takes in 13 "piano key" inputs an
 
 In addition to "piano mode," the ASIC also has a sequencer mode. The sequencer mode has 8 beats whose notes can be edited to form a repeating sound pattern. Within sequencer mode, the tempo can be adjusted between 4 settings.
 
+## Github Directory Structure 
+- [Source Code](https://github.com/STARS-Design-Track-2023/SaSS/tree/main/source)
+- [Documents: Includes RTL Diagrams and User Manual](https://github.com/STARS-Design-Track-2023/SaSS/tree/main/docs)
+
+
+
 ## Pin Layout
 
 **GPIO pins 0 - 17 will be used as inputs.**
