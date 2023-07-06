@@ -70,7 +70,9 @@ In addition to "piano mode," the ASIC also has a sequencer mode. The sequencer m
 
 27: sequencer LED 8
 
-28: PWM source
+28: sequencer on/off LED
+
+29: PWM source
 
 ## Supporting Equipment
 List all the required equipment and upload a breadboard with the equipment set up (recommend using tinkercad circuits if possible)
