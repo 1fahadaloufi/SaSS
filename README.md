@@ -86,12 +86,15 @@ In addition to "piano mode," the ASIC also has a sequencer mode. The sequencer m
 29: PWM source
 
 
+## Supporting Equipment
+
 Using the above pin mappings, you can assemble your circuit according to the following circuit diagram. 
 ![Circuit Diagram](./docs/circuit_diagram.png)
 You will notice the GPIO header at the top left. With the GPIO header, it is starting from GPIO 0 at the very left. 
 
-## Supporting Equipment
-List all the required equipment and upload a breadboard with the equipment set up (recommend using tinkercad circuits if possible)
+Below are the required components show on the circuit diagram image. 
+
+***<h1>TODO</h1>***
 
 ## RTL Diagrams
 Below is a top-level RTL diagram explaining the architecture of our design: 
