@@ -14,43 +14,65 @@ This project is an ASIC for a synthesizer that takes in 13 "piano key" inputs an
 In addition to "piano mode," the ASIC also has a sequencer mode. The sequencer mode has 8 beats whose notes can be edited to form a repeating sound pattern. Within sequencer mode, the tempo can be adjusted between 4 settings.
 
 ## Pin Layout
-1: C; sequencer note 1
+0: C; sequencer note 1
 
-2: C#; sequencer note 2
+1: C#; sequencer note 2
 
-3: D; sequencer note 3
+2: D; sequencer note 3
 
-4: D#; sequencer note 4
+3: D#; sequencer note 4
 
-5: E; sequencer note 5
+4: E; sequencer note 5
 
-6: F; sequencer note 6
+5: F; sequencer note 6
 
-7: F#; sequencer note 7
+6: F#; sequencer note 7
 
-8: G; sequencer note 8
+7: G; sequencer note 8
 
-9: G#
+8: G#
 
-10: A
+9: A
 
-11: A#
+10: A#
 
-12: B
+11: B
 
-13: C
+12: C
 
-14: waveform mode
+13: waveform mode
 
-15: octave mode
+14: octave mode
 
-16: sequencer/piano mode
+15: sequencer/piano mode
 
-17: sequencer tempo
+16: sequencer tempo
 
-18: sequencer play/pause
+17: sequencer play/pause
 
+18: mode LED 1
 
+19: mode LED 2
+
+20: sequencer LED 1
+
+21: sequencer LED 2
+
+22: sequencer LED 3
+
+23: sequencer LED 4
+
+24: sequencer LED 5
+
+25: sequencer LED 6
+
+26: sequencer LED 7
+
+27: sequencer LED 8
+
+28: sequencer on/off LED
+
+29: PWM source
 
 ## Supporting Equipment
 List all the required equipment and upload a breadboard with the equipment set up (recommend using tinkercad circuits if possible)
